@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import useApi from "../Components/useApi"
 import Loader from "../Components/Loader"
 import Section from "../Components/Section"
@@ -22,7 +22,11 @@ const Container = styled.div `
 `;
 
 const Header = styled.div `
-    padding-left: 1.2rem;
+    margin-left: 1.2rem;
+    font-weight: 500;
+    &.first {
+        margin-top: 1.5rem;
+    }
 `;
 
 const Top = styled.div `
@@ -92,14 +96,18 @@ const Movie = () => {
         }
     }
 
+    useEffect(() => {
+        document.body.style.overflow = "hidden";
+        return () => document.body.style.overflow = "visible";
+    },[])
     return (
         <React.Fragment>       
-            <Header >Now Playing</Header>
-            <Box ref={scrollOne} onWheel={handleOne} >{(nowPlaying&&nowPlaying.length) ? <Container>{nowPlaying.map(movie => <Section key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path}/>)}</Container> : <Loader /> }</Box>
+            <Header className="first" >Now Playing</Header>
+            <Box ref={scrollOne} onWheel={handleOne} >{(nowPlaying&&nowPlaying.length) ? <Container>{nowPlaying.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
             <Header >Popular</Header>
-            <Box ref={scrollTwo} onWheel={handleTwo} >{(popular&&popular.length) ? <Container>{popular.map(movie => <Section key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path}/>)}</Container> : <Loader /> }</Box>
+            <Box ref={scrollTwo} onWheel={handleTwo} >{(popular&&popular.length) ? <Container>{popular.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
             <Header >Upcoming</Header>
-            <Box ref={scrollThree} onWheel={handleThree} >{(upcoming&&upcoming.length) ? <Container>{upcoming.map(movie => <Section key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path}/>)}</Container> : <Loader /> }</Box>
+            <Box ref={scrollThree} onWheel={handleThree} >{(upcoming&&upcoming.length) ? <Container>{upcoming.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
             <Top onClick={handleClick}>{tag}</Top>
         </React.Fragment>
     )

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 const Poster = styled.img`
@@ -6,8 +7,19 @@ const Poster = styled.img`
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
-    box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 2px 2px 8px;
+    box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px;
     transition: transform 0.1s linear;
+`;
+
+const Media = styled.div`
+    position: absolute;
+    font-size: 0.5rem;
+    bottom: 0.6rem;
+    letter-spacing: 0.04rem;
+    left: 0.7rem;
+    color: #ffe4a4;
+    opacity: 0;
+    transition: opacity 0.1s linear;
 `;
 
 const Rate = styled.div`
@@ -28,6 +40,7 @@ const HigherBar = styled.div`
     background-color: black;
     border-radius: 5px;
     overflow: hidden;
+    box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px;
 `;
 
 const Title = styled.div`
@@ -53,16 +66,20 @@ const LowerBar = styled.div`
 `;
 
 
-const Container = styled.div`
+const Container = styled(Link)`
     margin: 0.5rem 0.7rem 0 0;
     width: 12rem;
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: transform 0.15s linear;
 
 
     &:hover {
         cursor: pointer;
+
+        transform: translateY(-10px);
+        transition: transform 0.15s linear;
         
         ${Poster} {
             opacity: 0.8;
@@ -75,6 +92,11 @@ const Container = styled.div`
             transition: opacity 0.1s linear;
         }
 
+        ${Media} {
+            opacity: 1;
+            transition: opacity 0.1s linear;
+        }
+
         ${LowerBar} {
             opacity: 0.7;
             transition: opacity 0.1s linear;
@@ -82,22 +104,18 @@ const Container = styled.div`
     }
 `;
 
-
-
-
-const Section = ({ date, rate, title, poster}) => {
-    return (
-        <Container>
+const Section = React.forwardRef((props, ref) => (
+        <Container ref={ref} to={(props.media==="movie") ? `/movie/${props.id}` : `/tv/${props.id}`}>
             <HigherBar>
-                <Poster src={`https://image.tmdb.org/t/p/w300${poster}`} ></Poster>
-                <Rate>{rate} / 10</Rate>
+                <Poster src={props.poster ? `https://image.tmdb.org/t/p/w300${props.poster}` : require("../Assets/noposter.jpeg")} ></Poster>
+                <Rate>{props.rate} / 10</Rate>
+                <Media>{props.media ? ((props.media==="movie") ? "MOVIE" : "TV") : ""}</Media>
             </HigherBar>
             <LowerBar>
-                <Title>{(title.length < 16) ? title : `${title.substr(0,16)}...`}</Title>
-                <Date>{date ? date.substr(0,4) : `NONE`}</Date>
+                <Title>{(props.title.length < 16) ? props.title : `${props.title.substr(0,16)}...`}</Title>
+                <Date>{props.date ? props.date.substr(0,4) : `NONE`}</Date>
             </LowerBar>
         </Container>
-    )
-}
+))
 
 export default Section

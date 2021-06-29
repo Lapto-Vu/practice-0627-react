@@ -13,10 +13,9 @@ const globalStyles = createGlobalStyle`
     }
     body{
         font-family: 'Poppins', sans-serif;
-        background-color:#F7F2F2;
+        background-color:white;
         letter-spacing: 0.05rem;
         font-size:1.3rem;
-        overflow: hidden;
 
         &::-webkit-scrollbar{ 
         display:none; 

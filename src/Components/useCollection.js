@@ -15,7 +15,6 @@ const useCollection = (id) => {
 
     const getCollect = async () => {
         const {data: {parts}} = await api.get(`collection/${id}`);
-        console.log(parts);
         setCollet(parts)
         setLoading(false);
     }

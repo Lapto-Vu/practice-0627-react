@@ -5,7 +5,7 @@ import Section from "../Components/Section"
 import styled from "styled-components";
 
 const Box = styled.div`
-    height: 23rem;
+    height: 26rem;
     width: 100%;
     overflow-y: scroll;
     padding: 1rem;
@@ -57,7 +57,7 @@ const Movie = () => {
     const scrollTwo = useRef();
     const scrollThree = useRef();
     const [tag, setTag] = useState(`◉`);
-    const [sum, setSum] = useState(300);
+    const [sum, setSum] = useState(350);
 
     const handleOne = (e) => {
         scrollOne.current.scrollLeft += e.deltaY
@@ -72,7 +72,7 @@ const Movie = () => {
     }
 
     const handleClick = () => {
-        if(sum===600) {
+        if(sum===700) {
             setSum(0)
             window.scrollTo({
                 top: sum,
@@ -80,7 +80,7 @@ const Movie = () => {
                 behavior: "smooth"
             })
         } else {
-            setSum(sum => sum+= 300)
+            setSum(sum => sum+= 350)
             setTag(`◉`)
             window.scrollTo({
                 top: sum,
@@ -89,7 +89,7 @@ const Movie = () => {
             })
         }
 
-        if(sum===600) {
+        if(sum===700) {
             setTag(`▵`)
         }
     }
@@ -105,7 +105,7 @@ const Movie = () => {
             <Header >Popular</Header>
             <Box ref={scrollTwo} onWheel={handleTwo} >{(popular&&popular.length) ? <Container>{popular.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
             <Header >Upcoming</Header>
-            <Box ref={scrollThree} onWheel={handleThree} >{(upcoming&&upcoming.length) ? <Container>{upcoming.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
+            <Box className="last" ref={scrollThree} onWheel={handleThree} >{(upcoming&&upcoming.length) ? <Container>{upcoming.map(movie => <Section id={movie.id} key={movie.id} date={movie.release_date} rate={movie.vote_average} title={movie.title} poster={movie.poster_path} media="movie"/>)}</Container> : <Loader /> }</Box>
             <Top onClick={handleClick}>{tag}</Top>
         </React.Fragment>
     )

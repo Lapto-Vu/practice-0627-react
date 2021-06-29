@@ -102,7 +102,6 @@ const Search = () => {
         handleSubmit();
     },[page])
 
-    console.log(results)
     return (
         <React.Fragment>
             <Form onSubmit={handleSubmit}>

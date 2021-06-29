@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react"
-import { Link, withRouter } from "react-router-dom";
+import React from "react"
+import { withRouter } from "react-router-dom";
 import useDetail from "../Components/useDetail";
 import styled from "styled-components";
 import Loader from "../Components/Loader";
 import Collection from "../Components/Collection";
+import Season from "../Components/Season";
 
 const Backdrop = styled.img`
     position: fixed;
@@ -68,13 +69,12 @@ const Collector = styled.div`
 const Ctitle = styled.span`
     font-size: 1.5rem;
     line-height: 3rem;
-    margin-bottom: 2rem;
-    margin-left: 1.5rem;
-    justify-self: flex-start;
+    margin-bottom: 1rem;
+    font-weight: 500;
 `;
 
 const Last = styled.div`
-    width: 80%;
+    width: 70%;
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
@@ -146,32 +146,21 @@ const Summary = styled.p`
     line-height: 1.5rem;
 `;
 
-// const {bydetail, setbyDetail} = useState([])
-
-// const multiple = () => {
-//     const {detail, loading} = useDetail(props);
-//     setbyDetail(detail);
-// }
-
-// useEffect(()=> {
-//     multiple();
-//     return () => multiple()
-// },[])
-
 const Detail = withRouter((props) => {
     const {detail, loading} = useDetail(props);
 
 	return (
         loading ? <Loader /> : <React.Fragment>
              <Content>
+                 {(detail.seasons&&detail.seasons.length > 1) ? <Collector><Ctitle>Seasons</Ctitle><Last>{detail.seasons.map(season => <Season key={season.id} name={season.name ? season.name : "NONE" } poster={season.poster_path} />)}</Last></Collector> : ""}
                 <Poster src={detail.poster_path ? `https://image.tmdb.org/t/p/original${detail.poster_path}` : require("../Assets/noposter.jpeg")} />
                 <RightBar>
                     <Title>{detail.name ? detail.name : detail.title}</Title>
-                    <Dub>{detail.production_countries ? detail.production_countries[0].iso_3166_1 : ""}{detail.production_companies[0].logo_path ?  <Company src={`https://image.tmdb.org/t/p/w500${detail.production_companies[0].logo_path}`} /> : ""}{detail.imdb_id ? <Pool target="_blank" href={`https://www.imdb.com/title/${detail.imdb_id}`}><Imdb src={require("../Assets/imdb.png")} /></Pool> : ""}</Dub>
+                    <Dub>{detail.origin_country||detail.production_countries ? (detail.origin_country ? detail.origin_country : (detail.production_countries.length===0 ? "" : detail.production_countries[0].iso_3166_1)) : ""}{detail.production_companies===null ?  <Company src={`https://image.tmdb.org/t/p/w500${detail.production_companies[0].logo_path}`} /> : ""}{detail.imdb_id ? <Pool target="_blank" href={`https://www.imdb.com/title/${detail.imdb_id}`}><Imdb src={require("../Assets/imdb.png")} /></Pool> : ""}</Dub>
                     <Sub>{detail.first_air_date ? detail.first_air_date.substr(0,4) : detail.release_date.substr(0,4)} ・ {detail.episode_run_time ? detail.episode_run_time[0] : ((detail.runtime) ? detail.runtime : "0")} MIN ・ {detail.genres.map((v,i) => (detail.genres.length === i+1) ? v.name.toUpperCase()  : `${v.name.toUpperCase()} ・ `)} </Sub>
                     <Summary>{detail.overview}</Summary>
                 </RightBar>
-                {detail.belongs_to_collection.id ? <Collector>
+                {detail.belongs_to_collection ? <Collector>
                     <Ctitle>Collection</Ctitle>
                     <Last><Collection id={detail.belongs_to_collection.id}/></Last>
                 </Collector> : "" }

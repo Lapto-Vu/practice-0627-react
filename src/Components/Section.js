@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
@@ -38,7 +38,6 @@ const HigherBar = styled.div`
     position: relative;
     background-color: black;
     border-radius: 5px;
-    margin-bottom: 1rem;
     overflow: hidden;
     /* box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px; */
 `;
@@ -63,12 +62,11 @@ const LowerBar = styled.div`
     display: flex;
     flex-direction: column;
     transition: opacity 0.1s linear;
-    margin-bottom: 1rem;
 `;
 
 
 const Container = styled(Link)`
-    margin: 0.5rem 0.7rem 0 0;
+    margin: 0 0.7rem 0 0;
     width: 12rem;
     height: 24rem;
     display: flex;
@@ -98,10 +96,6 @@ const Container = styled(Link)`
             transition: opacity 0.1s linear;
         }
 
-        ${LowerBar} {
-            opacity: 0.7;
-            transition: opacity 0.1s linear;
-        }
     }
 `;
 

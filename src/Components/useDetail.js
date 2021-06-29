@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios";
 
 const useDetail = (props) => {
@@ -9,7 +9,7 @@ const useDetail = (props) => {
     const check = () => {
         const {location: { pathname }, match: {params: { id }}, history: { push }} = props;
         path = pathname;
-        const parsedId = parseInt(id);
+        const parsedId = parseInt(id, 10);
           if (isNaN(parsedId)) {
             return push("/");
           }
@@ -32,7 +32,7 @@ const useDetail = (props) => {
     useEffect(() => {
         check()
         getDetail()
-    },[])
+    },[props.match.params.id])
 
     return {detail, loading}
 }

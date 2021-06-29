@@ -5,7 +5,7 @@ import Section from "../Components/Section"
 import styled from "styled-components";
 
 const Box = styled.div`
-    height: 23rem;
+    height: 26.5rem;
     width: 100%;
     overflow-y: scroll;
     padding: 1rem;
@@ -55,7 +55,7 @@ const TV = () => {
     const scrollTwo = useRef();
     const scrollThree = useRef();
     const [tag, setTag] = useState(`◉`);
-    const [sum, setSum] = useState(300);
+    const [sum, setSum] = useState(350);
 
     const handleOne = (e) => {
         scrollOne.current.scrollLeft += e.deltaY
@@ -70,7 +70,7 @@ const TV = () => {
     }
 
     const handleClick = () => {
-        if(sum===600) {
+        if(sum===700) {
             setSum(0)
             window.scrollTo({
                 top: sum,
@@ -78,7 +78,7 @@ const TV = () => {
                 behavior: "smooth"
             })
         } else {
-            setSum(sum => sum+= 300)
+            setSum(sum => sum+= 350)
             setTag(`◉`)
             window.scrollTo({
                 top: sum,
@@ -87,7 +87,7 @@ const TV = () => {
             })
         }
 
-        if(sum===600) {
+        if(sum===700) {
             setTag(`▵`)
         }
     }

@@ -24,7 +24,7 @@ const useDetail = (props) => {
       });
 
     const getDetail = async () => {
-        const {data } = await api.get(`${path}`);
+        const {data} = await api.get(`${path}`);
         setDetail(data)
         setLoading(false);
     }

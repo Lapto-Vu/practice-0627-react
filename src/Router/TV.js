@@ -70,7 +70,6 @@ const TV = () => {
     }
 
     const handleClick = () => {
-        console.log(sum)
         if(sum===600) {
             setSum(0)
             window.scrollTo({
@@ -79,7 +78,6 @@ const TV = () => {
                 behavior: "smooth"
             })
         } else {
-            console.log("hi!")
             setSum(sum => sum+= 300)
             setTag(`◉`)
             window.scrollTo({

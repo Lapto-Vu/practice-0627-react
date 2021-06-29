@@ -7,7 +7,6 @@ const Poster = styled.img`
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
-    box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px;
     transition: transform 0.1s linear;
 `;
 
@@ -39,8 +38,9 @@ const HigherBar = styled.div`
     position: relative;
     background-color: black;
     border-radius: 5px;
+    margin-bottom: 1rem;
     overflow: hidden;
-    box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px;
+    /* box-shadow: rgb(234, 234, 234) -5px -5px 8px, rgb(182, 182, 182) 5px 5px 10px; */
 `;
 
 const Title = styled.div`
@@ -63,13 +63,14 @@ const LowerBar = styled.div`
     display: flex;
     flex-direction: column;
     transition: opacity 0.1s linear;
+    margin-bottom: 1rem;
 `;
 
 
 const Container = styled(Link)`
     margin: 0.5rem 0.7rem 0 0;
     width: 12rem;
-    height: 100%;
+    height: 24rem;
     display: flex;
     flex-direction: column;
     transition: transform 0.15s linear;
@@ -105,7 +106,7 @@ const Container = styled(Link)`
 `;
 
 const Section = React.forwardRef((props, ref) => (
-        <Container ref={ref} to={(props.media==="movie") ? `/movie/${props.id}` : `/tv/${props.id}`}>
+        <Container ref={ref} to={props.media ? ((props.media==="movie") ? `/movie/${props.id}` : `/tv/${props.id}`) : `/movie/${props.id}`}>
             <HigherBar>
                 <Poster src={props.poster ? `https://image.tmdb.org/t/p/w300${props.poster}` : require("../Assets/noposter.jpeg")} ></Poster>
                 <Rate>{props.rate} / 10</Rate>

@@ -13,10 +13,10 @@ const Routes = () => {
             <React.Fragment>
                 <Nav />
                 <Switch>
+                    <Route path="/movie/:id" component={Detail} />
                     <Route path="/" exact component={Movie} />
 			        <Route path="/tv" exact component={TV} />
 			        <Route path="/search" exact component={Search} />
-                    <Route path="/movie/:id" exct component={Detail} />
                     <Route path="/tv/:id" exct component={Detail} />
                     <Redirect from="*" to="/" />
                 </Switch>

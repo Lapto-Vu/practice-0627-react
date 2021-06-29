@@ -33,9 +33,6 @@ justify-content: center;
 align-items: center;
 border-top-right-radius: 5px;
 border-top-left-radius: 5px;
-&:hover {
-	background-color: rgba(255,255,255,0.3);
-}
 `;
 
 const Nav = withRouter(({ location: { pathname } }) => {

@@ -72,7 +72,6 @@ const Movie = () => {
     }
 
     const handleClick = () => {
-        console.log(sum)
         if(sum===600) {
             setSum(0)
             window.scrollTo({
@@ -81,7 +80,6 @@ const Movie = () => {
                 behavior: "smooth"
             })
         } else {
-            console.log("hi!")
             setSum(sum => sum+= 300)
             setTag(`◉`)
             window.scrollTo({
